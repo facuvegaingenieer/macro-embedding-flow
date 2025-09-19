@@ -4,21 +4,25 @@ from macro_embeddings_flow.load.load import loadEmbedding
 import logging
 from dotenv import load_dotenv
 
+# Cargar variables de entorno si tienes un .env
+load_dotenv()
 
 logging.basicConfig(
-    level=logging.INFO,              # Nivel mínimo de logs a mostrar
+    level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
-    filename='embedding.log',             # Opcional: guarda los logs en un archivo
-    filemode='a'                    # 'a' append, 'w' overwrite
+    filename='embedding.log',
+    filemode='a'
 )
 
 
-def MacroEtlEmbedding(url: str) -> str | None:
+def MacroEtlEmbedding(url: str) -> list[str] | None:
     """
-    se le pasa la url de un s3 con chunks, se descarga el archivo se transforma a embedding de 768 dimensiones y
-    y los vuelve a subir ya vectorizados
+    Se le pasa la URL de un archivo parquet en S3, descarga los chunks,
+    los transforma a embeddings de 768 dimensiones y los vuelve a subir a S3.
+    Retorna la lista de URLs de los embeddings subidos.
 
-    You pass the URL of an S3 file with chunks, download the file, transform it into a 768-dimensional embedding, and upload it again, already vectorized.
+    You pass the URL of an S3 file with chunks, download it, transform it
+    into 768-dimensional embeddings, and upload them back to S3.
     """
 
     # 1️⃣ Extraer
@@ -29,12 +33,12 @@ def MacroEtlEmbedding(url: str) -> str | None:
 
     # 2️⃣ Transformar
     embedding_data = transform_embedding.transform(archivo)
-    if not embedding_data :
+    if not embedding_data:
         logging.error(f"Error al transformar los chunks desde {url}")
         return None
 
     # 3️⃣ Cargar a S3
-    s3_embedding = loadEmbedding.load(embedding_data )
+    s3_embedding = loadEmbedding.load(embedding_data)
     if not s3_embedding:
         logging.error(f"Error al subir chunks a S3 desde {url}")
         return None

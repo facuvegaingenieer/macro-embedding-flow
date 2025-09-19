@@ -1,22 +1,20 @@
 import pytest
 from macro_embeddings_flow.main import MacroEtlEmbedding
+
 def test_macro_etl(monkeypatch):
-    # Patch extract para que no descargue realmente
     monkeypatch.setattr(
         "macro_embeddings_flow.extract.extract.extract_S3.extract",
-        lambda url, *_: "datos_parquet/fake_chunk.parquet"  # acepta url y opcionalmente otros args
+        lambda url, *_: "datos_parquet/fake_chunk.parquet"
     )
     monkeypatch.setattr(
         "macro_embeddings_flow.transform.transform.transform_embedding.transform",
-        lambda parquet_path, *_: ["datos_parquet/fake_chunk_transformed.parquet"]  # acepta parquet_path y opcionales
+        lambda parquet_path, *_: ["datos_parquet/fake_chunk_transformed.parquet"]
     )
     monkeypatch.setattr(
         "macro_embeddings_flow.load.load.loadEmbedding.load",
-        lambda chunks: ["s3://mi-bucket/fake_chunk_transformed.parquet"]  # devuelve URL S3 final
+        lambda chunks: ["s3://mi-bucket/fake_chunk_transformed.parquet"]
     )
     
-    # Ejecutar pipeline completo
-    urls3 = MacroEtlEmbedding("s3://mi-bucket/fake_chunk.parquet").run()
-    
-    # Verificar que la salida es la URL del embedding subido a S3
+    urls3 = MacroEtlEmbedding("s3://mi-bucket/fake_chunk.parquet")
     assert urls3 == ["s3://mi-bucket/fake_chunk_transformed.parquet"]
+
