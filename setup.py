@@ -17,12 +17,12 @@ setup(
     license='MIT', 
     packages=find_packages(),
     install_requires=[
-        'torch==2.8.0+cpu',
-        'sentence-transformers',
-        'transformers',
-        'boto3',
-        'pandas',
-        'pyarrow',
+    'torch==2.8.0',
+    'sentence-transformers',
+    'transformers',
+    'boto3',
+    'pandas',
+    'pyarrow',
     ],
     entry_points={
         'console_scripts': [
