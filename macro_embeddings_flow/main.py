@@ -15,7 +15,7 @@ logging.basicConfig(
 )
 
 
-def MacroEtlEmbedding(url: str) -> list[str] | None:
+def MacroEtlEmbedding(url: str) -> str | None:
     """
     Se le pasa la URL de un archivo parquet en S3, descarga los chunks,
     los transforma a embeddings de 768 dimensiones y los vuelve a subir a S3.

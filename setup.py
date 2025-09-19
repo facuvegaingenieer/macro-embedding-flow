@@ -7,7 +7,7 @@ long_description = (this_directory / "README.md").read_text(encoding='utf-8')
 
 setup(
     name='macro-embedding-flow',
-    version='0.0.1',
+    version='0.0.2',
     description='ETL Para banco macro, transforma los chunks de pdf bancarios y los tranforma en embeddings de 768 dimenciones y la sube a s3',
     long_description=long_description,
     long_description_content_type='text/markdown',
