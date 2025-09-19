@@ -23,6 +23,7 @@ setup(
     'boto3',
     'pandas',
     'pyarrow',
+    'python-dotenv',
     ],
     entry_points={
         'console_scripts': [
