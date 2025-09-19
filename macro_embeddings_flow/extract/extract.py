@@ -1,4 +1,4 @@
-from contracts.contractsChunks import Extractor
+from ..contracts.contractsChunks import Extractor
 import logging
 from pathlib import Path 
 import boto3

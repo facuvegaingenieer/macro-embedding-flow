@@ -1,4 +1,4 @@
-from contracts.contractsChunks import Loader
+from ..contracts.contractsChunks import Loader
 import boto3 
 import logging
 import os
@@ -11,7 +11,7 @@ logging.basicConfig(
     filemode='a'                    # 'a' append, 'w' overwrite
 )
 
-class loadChunks(Loader):
+class loadEmbedding(Loader):
     @classmethod
     def load(self, embedding_path: str) -> str:
         try:
@@ -21,7 +21,7 @@ class loadChunks(Loader):
                 return None
 
             s3_bucket = os.environ.get("AWS_BUCKET_NAME")
-            s3_prefix = os.environ.get("AWS_S3_PREFIX", "").strip("/")
+            s3_prefix = os.environ.get("AWS_S3_PREFIX_EMBEDDINGS", "").strip("/")
 
             if not s3_bucket:
                 logging.error("❌ No se encontró la variable de entorno AWS_BUCKET_NAME")

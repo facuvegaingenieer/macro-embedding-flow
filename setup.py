@@ -22,9 +22,7 @@ setup(
         'transformers',
         'boto3',
         'pandas',
-        'requests',
-        'pdfplumber',
-        'langchain',
+        'pyarrow',
     ],
     entry_points={
         'console_scripts': [

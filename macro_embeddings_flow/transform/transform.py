@@ -2,9 +2,10 @@ import logging
 import pandas as pd
 from pathlib import Path
 from sentence_transformers import SentenceTransformer
-from contracts.contractsChunks import Transformation
+from ..contracts.contractsChunks import Transformation
 
 class transform_embedding(Transformation):
+    @classmethod
     def transform(self, parquet_path: str) -> str:
         try:
             # Cargar datos del parquet
